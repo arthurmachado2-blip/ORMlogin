@@ -32,6 +32,11 @@ export async function loginUser(req, res) {
         const resUser = await User.findOne({ where: { email } }); 
         if(!resUser){res.status(404).json({erro:"Usuario nao encontrado"});}
         
+        const compareSenha = await bcrypt.compare(senha, resUser.senha)
+        if(!compareSenha){res.status(401).json({erro:"Credenciais invalidas"})}
+
+        // Caso de certo, assinar o token e devolver o token na requisição 
+
         res.status(200).json(resUser)
     } catch (error) {
         res.status(500).json(error);
