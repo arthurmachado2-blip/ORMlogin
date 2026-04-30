@@ -22,3 +22,18 @@ export async function createUser(req, res) {
         res.status(500).json(error);
     }
 }
+
+export async function loginUser(req, res) {
+    try {
+        const { email, senha } = req.body;
+        if(!email || !senha){
+            res.status(400).json({erro:"Requisição insuficiente"});
+        }
+        const resUser = await User.findOne({ where: { email } }); 
+        if(!resUser){res.status(404).json({erro:"Usuario nao encontrado"});}
+        
+        res.status(200).json(resUser)
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
