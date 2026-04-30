@@ -7,6 +7,7 @@ import routerAuth from './router/auth.router.js'
 // Importar model para garantir regristro no squelize;
 import './model/user.model.js';
 
+
 const app = express();
 app.use(express.json());
 
